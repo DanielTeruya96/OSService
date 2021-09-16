@@ -19,6 +19,10 @@ public class Contato extends EntidadeBase {
     @Column(name = "email")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    private Cliente cliente;
+
     public int getId() {
         return id;
     }
@@ -49,5 +53,13 @@ public class Contato extends EntidadeBase {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

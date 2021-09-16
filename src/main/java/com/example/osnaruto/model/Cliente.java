@@ -1,6 +1,7 @@
 package com.example.osnaruto.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Cliente extends EntidadeBase {
@@ -10,20 +11,24 @@ public class Cliente extends EntidadeBase {
     private Integer id;
 
     @Basic
-    @Column(name = "razao_social", nullable = true, length = 255)
+    @Column(name = "razao_social")
     private String razaoSocial;
 
     @Basic
-    @Column(name = "cpf_pcpj", nullable = true, length = 255)
+    @Column(name = "cpf_pcpj")
     private String cpfPcpj;
 
     @Basic
-    @Column(name = "nome_fantasia", nullable = true, length = 255)
+    @Column(name = "nome_fantasia")
     private String nomeFantasia;
 
     @Basic
-    @Column(name = "endereco", nullable = true, length = 500)
+    @Column(name = "endereco", length = 500)
     private String endereco;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Contato> contatos;
+
 
 
 
@@ -92,10 +97,7 @@ public class Cliente extends EntidadeBase {
             return false;
         if (dataAlteracao != null ? !dataAlteracao.equals(cliente.dataAlteracao) : cliente.dataAlteracao != null)
             return false;
-        if (versaoRegistro != null ? !versaoRegistro.equals(cliente.versaoRegistro) : cliente.versaoRegistro != null)
-            return false;
-
-        return true;
+        return versaoRegistro != null ? versaoRegistro.equals(cliente.versaoRegistro) : cliente.versaoRegistro == null;
     }
 
     @Override
@@ -110,5 +112,14 @@ public class Cliente extends EntidadeBase {
         result = 31 * result + (dataAlteracao != null ? dataAlteracao.hashCode() : 0);
         result = 31 * result + (versaoRegistro != null ? versaoRegistro.hashCode() : 0);
         return result;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+
     }
 }
