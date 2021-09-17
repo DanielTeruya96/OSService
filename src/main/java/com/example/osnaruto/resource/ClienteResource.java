@@ -6,6 +6,8 @@ import com.example.osnaruto.model.ClienteRepository;
 import com.example.osnaruto.model.Contato;
 import com.example.osnaruto.model.Usuario;
 import com.example.osnaruto.repository.BasicBusiness;
+import com.example.osnaruto.response.ClienteResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +29,12 @@ public class ClienteResource extends BasicResource {
      * @return
      */
     @GetMapping("/consultar")
-    public List<Cliente> consultar(){
-        List<Cliente> clientes = new ArrayList<>();
+    public List<ClienteResponse> consultar(){
+        List<ClienteResponse> clientes = new ArrayList<>();
         for(Cliente cliente: clienteRepository.findAll()){
-            clientes.add(cliente);
+            ModelMapper modelMapper = new ModelMapper();
+            ClienteResponse response = modelMapper.map(cliente, ClienteResponse.class);
+            clientes.add(response);
         }
 
         return clientes;

@@ -7,6 +7,8 @@ import com.example.osnaruto.model.Usuario;
 import com.example.osnaruto.repository.BasicBusiness;
 import com.example.osnaruto.repository.ContatoRepository;
 import com.example.osnaruto.repository.UsuarioRepository;
+import com.example.osnaruto.response.ContatoResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +34,13 @@ public class ContatoResource{
      * @return lista de contatos
      */
     @GetMapping("/consultar")
-    public List<Contato> contatos(){
-        List<Contato> contatos = new ArrayList<>();
+    public List<ContatoResponse> contatos(){
+        List<ContatoResponse> contatos = new ArrayList<>();
         for(Contato item: repository.findAll()){
-            contatos.add(item);
+
+            ModelMapper modelMapper = new ModelMapper();
+            ContatoResponse response =  modelMapper.map(item, ContatoResponse .class);
+            contatos.add(response);
         }
         return contatos;
     }
