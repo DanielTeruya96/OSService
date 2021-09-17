@@ -1,4 +1,4 @@
-package com.example.osnaruto.response;
+package com.example.osnaruto.config.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,27 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @ApiModel
-public class ContatoResponse {
+public class ContatoRequest {
 
-    @ApiModelProperty(value = "Código do contato")
-    private int id;
-
-    @ApiModelProperty(value = "nome do contato")
+    @ApiModelProperty(value = "Nome do Contato", required = true, example = "Josenildo")
     private String nome;
 
-    @ApiModelProperty(value = "telefone do contato")
+    @ApiModelProperty(value = "Telefone do contato", example = "1000-000")
     private String telefone;
 
-    @ApiModelProperty(value = "email do contato")
+    @ApiModelProperty(value = "email do contato", example = "mail@mail.com")
     private String email;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
