@@ -26,7 +26,7 @@ public class Cliente extends EntidadeBase {
     @Column(name = "endereco", length = 500)
     private String endereco;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Contato> contatos;
 
 
