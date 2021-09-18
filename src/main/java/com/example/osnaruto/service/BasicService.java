@@ -16,6 +16,8 @@ public class BasicService<T extends EntidadeBase> {
 
     protected final ModelMapper modelMapper = new ModelMapper();
 
+    protected final BasicBusiness<T> business = new BasicBusiness<>();
+
 
     protected Usuario getUsuario(String token) {
         Usuario logado = usuarioRepository.findByToken(token);
