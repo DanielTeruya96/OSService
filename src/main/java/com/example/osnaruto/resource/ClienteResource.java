@@ -23,8 +23,6 @@ public class ClienteResource extends BasicResource {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    private BasicBusiness<Cliente> business = new BasicBusiness<>();
-
     @ApiOperation(value = "Consulta todos clientes")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna lista de clientes"),
@@ -58,15 +56,7 @@ public class ClienteResource extends BasicResource {
     })
     @PostMapping(value = "/insereCliente", consumes = "application/json", produces = "application/json")
     public ClienteResponse insereCliente(@RequestBody ClientRequest clienteRequest, @RequestHeader String token){
-        Usuario logado = getUsuario(token);
-
-        Cliente cliente = modelMapper.map(clienteRequest,Cliente.class);
-
-        Cliente c = business.inserir(cliente,logado);
-        c = clienteRepository.save(c);
-
-
-        return modelMapper.map(c,ClienteResponse.class);
+        return service.insereCliente(clienteRequest, token);
     }
 
 
@@ -83,21 +73,7 @@ public class ClienteResource extends BasicResource {
     })
     @PostMapping(value = "/removerCliente", produces = "text/plain")
     public String removerCliente(@RequestParam Integer clienteId, @RequestHeader String token){
-        Usuario logado = getUsuario(token);
-
-        Optional<Cliente> clienteOptional =  clienteRepository.findById(clienteId);
-
-        if(clienteOptional.isEmpty()){
-            throw new BasicException("clienteId nao encontrado");
-        }
-
-        Cliente cliente = clienteOptional.get();
-
-        cliente = business.remove(cliente,logado);
-
-        clienteRepository.save(cliente);
-
-        return "Cliente removido com sucesso!";
+        return service.removerCliente(clienteId,token);
     }
 
 
