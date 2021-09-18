@@ -19,10 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("cliente")
-public class ClienteResource extends BasicResource {
-
-    @Autowired
-    private ClienteRepository clienteRepository;
+public class ClienteResource {
 
     private final ClienteService service;
 
