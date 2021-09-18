@@ -10,6 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class BasicResource {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
+    protected final ModelMapper modelMapper = new ModelMapper();
+
+
+    protected Usuario getUsuario(String token) {
+        Usuario logado = usuarioRepository.findByToken(token);
+        if(logado == null){
+            throw new AutenticacaoException();
+        }
+        return logado;
+    }
 
 }

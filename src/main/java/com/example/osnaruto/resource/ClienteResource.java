@@ -24,6 +24,12 @@ public class ClienteResource extends BasicResource {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    private final ClienteService service;
+
+    public ClienteResource(ClienteService service) {
+        this.service = service;
+    }
+
     @ApiOperation(value = "Consulta todos clientes")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna lista de clientes"),
@@ -33,14 +39,7 @@ public class ClienteResource extends BasicResource {
     })
     @GetMapping(value = "/consultar", produces = "application/json")
     public List<ClienteResponse> consultar(){
-        List<ClienteResponse> clientes = new ArrayList<>();
-        for(Cliente cliente: clienteRepository.findAll()){
-            ModelMapper modelMapper = new ModelMapper();
-            ClienteResponse response = modelMapper.map(cliente, ClienteResponse.class);
-            clientes.add(response);
-        }
-
-        return clientes;
+         return service.buscarTotosCliente();
 
     }
 

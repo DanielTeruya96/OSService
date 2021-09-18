@@ -1,7 +1,6 @@
 package com.example.osnaruto.service;
 
 import com.example.osnaruto.exception.AutenticacaoException;
-import com.example.osnaruto.model.Cliente;
 import com.example.osnaruto.model.EntidadeBase;
 import com.example.osnaruto.model.Usuario;
 import com.example.osnaruto.repository.BasicBusiness;
@@ -26,7 +25,4 @@ public class BasicService<T extends EntidadeBase> {
         }
         return logado;
     }
-
-
-    protected final BasicBusiness<T> business = new BasicBusiness<>();
 }
