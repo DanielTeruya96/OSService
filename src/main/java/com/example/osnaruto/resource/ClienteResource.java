@@ -3,10 +3,11 @@ package com.example.osnaruto.resource;
 import com.example.osnaruto.exception.BasicException;
 import com.example.osnaruto.model.Cliente;
 import com.example.osnaruto.model.ClienteRepository;
-import com.example.osnaruto.model.Contato;
 import com.example.osnaruto.model.Usuario;
 import com.example.osnaruto.repository.BasicBusiness;
+import com.example.osnaruto.request.ClientRequest;
 import com.example.osnaruto.response.ClienteResponse;
+import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,14 @@ public class ClienteResource extends BasicResource {
 
     private BasicBusiness<Cliente> business = new BasicBusiness<>();
 
-    /**
-     * Busca todos os clientes
-     * @return
-     */
-    @GetMapping("/consultar")
+    @ApiOperation(value = "Consulta todos clientes")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna lista de clientes"),
+            @ApiResponse(code = 500, message = "Erro não mapeado")
+
+
+    })
+    @GetMapping(value = "/consultar", produces = "application/json")
     public List<ClienteResponse> consultar(){
         List<ClienteResponse> clientes = new ArrayList<>();
         for(Cliente cliente: clienteRepository.findAll()){
@@ -42,31 +46,42 @@ public class ClienteResource extends BasicResource {
     }
 
 
-    /**
-     * Metodo para inserir cliente
-     *
-     * @param cliente { "razaoSocial":"a razao", "cpfPcpj":"12345678", "nomeFantasia":"Fantasma da ope", "endereco":algum lugar desse mundo"}
-     * @param token token de acesso ao serviço
-     * @return cliente json com o id
-     */
-    @PostMapping("/insereCliente")
-    public Cliente insereCliente(@RequestBody Cliente cliente, @RequestHeader String token){
+    @ApiOperation(value = "Insere cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna Cliente cadastrado"),
+            @ApiResponse(code = 500, message = "Erro não mapeado")
+
+
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "Token de acesso", required = true, paramType = "header", dataTypeClass = String.class, example = "852468245"),
+    })
+    @PostMapping(value = "/insereCliente", consumes = "application/json", produces = "application/json")
+    public ClienteResponse insereCliente(@RequestBody ClientRequest clienteRequest, @RequestHeader String token){
         Usuario logado = getUsuario(token);
+
+        Cliente cliente = modelMapper.map(clienteRequest,Cliente.class);
 
         Cliente c = business.inserir(cliente,logado);
         c = clienteRepository.save(c);
-        return c;
+
+
+        return modelMapper.map(c,ClienteResponse.class);
     }
 
 
-    /**
-     * Metodo para remover o cliente
-     *
-     * @param clienteId id do cliente que deseja remover
-     * @param token token de acesso ao serviço
-     * @return mensagem de confirmação
-     */
-    @PostMapping("/removerCliente")
+    @ApiOperation(value = "Remove um cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 500, message = "Erro não mapeado")
+
+
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "Token de acesso", required = true,  paramType = "header", dataTypeClass = String.class, example = "852468245"),
+            @ApiImplicitParam(name = "clienteId", value = "Codigo do contato", required = true, paramType = "header", dataTypeClass = String.class, example = "123"),
+    })
+    @PostMapping(value = "/removerCliente", produces = "text/plain")
     public String removerCliente(@RequestParam Integer clienteId, @RequestHeader String token){
         Usuario logado = getUsuario(token);
 
@@ -83,9 +98,6 @@ public class ClienteResource extends BasicResource {
         clienteRepository.save(cliente);
 
         return "Cliente removido com sucesso!";
-
-
-
     }
 
 

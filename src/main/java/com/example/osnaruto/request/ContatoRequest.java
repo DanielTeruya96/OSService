@@ -1,12 +1,7 @@
-package com.example.osnaruto.config.request;
+package com.example.osnaruto.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @ApiModel
 public class ContatoRequest {

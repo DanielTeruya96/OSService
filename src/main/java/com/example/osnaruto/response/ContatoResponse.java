@@ -11,16 +11,16 @@ import javax.persistence.Id;
 @ApiModel
 public class ContatoResponse {
 
-    @ApiModelProperty(value = "Código do contato")
+    @ApiModelProperty(value = "Código do contato", example = "123")
     private int id;
 
-    @ApiModelProperty(value = "nome do contato")
+    @ApiModelProperty(value = "nome do contato", example = "Josenildo")
     private String nome;
 
-    @ApiModelProperty(value = "telefone do contato")
+    @ApiModelProperty(value = "telefone do contato", example = "48651-7894")
     private String telefone;
 
-    @ApiModelProperty(value = "email do contato")
+    @ApiModelProperty(value = "email do contato", example = "josenildo@mail.com")
     private String email;
 
     public int getId() {

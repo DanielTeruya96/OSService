@@ -1,6 +1,6 @@
 package com.example.osnaruto.resource;
 
-import com.example.osnaruto.config.request.ContatoRequest;
+import com.example.osnaruto.request.ContatoRequest;
 import com.example.osnaruto.exception.AutenticacaoException;
 import com.example.osnaruto.exception.BasicException;
 import com.example.osnaruto.model.Contato;

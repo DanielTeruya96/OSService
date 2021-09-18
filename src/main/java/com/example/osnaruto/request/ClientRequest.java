@@ -1,17 +1,11 @@
-package com.example.osnaruto.response;
+package com.example.osnaruto.request;
 
-
-import io.swagger.annotations.ApiModel;
+import com.example.osnaruto.response.ContatoResponse;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel
-public class ClienteResponse {
-
-
-    @ApiModelProperty(value = "codigo do cliente", example = "5")
-    private Integer id;
+public class ClientRequest {
 
 
     @ApiModelProperty(value = "Razão social", example = "Conveniencia")
@@ -25,18 +19,6 @@ public class ClienteResponse {
 
     @ApiModelProperty(value = "Endereco do cliente", example="Rua de algum lugar numero 53")
     private String endereco;
-
-
-    @ApiModelProperty(value = "Lista de Contato")
-    private List<ContatoResponse> contatos;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getRazaoSocial() {
         return razaoSocial;
@@ -68,13 +50,5 @@ public class ClienteResponse {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public List<ContatoResponse> getContatos() {
-        return contatos;
-    }
-
-    public void setContatos(List<ContatoResponse> contatos) {
-        this.contatos = contatos;
     }
 }
