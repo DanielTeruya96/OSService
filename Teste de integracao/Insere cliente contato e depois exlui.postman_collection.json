@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "f2e79824-5360-4dac-a982-8e45c0970f7d",
+		"name": "Insere cliente contato e depois exlui",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insere cliente Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Contem id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"id_cliente\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "12345678",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"razaoSocial\": \"{{$randomCompanyName}}\",\r\n    \"cpfPcpj\": \"{{$randomInt}}\",\r\n    \"nomeFantasia\": \"{{$randomCompanySuffix}}\",\r\n    \"endereco\": \"{{$randomStreetAddress}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cliente/insereCliente",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"insereCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insere contato Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Contem id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"id_contato\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "12345678",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"telefone\":\"{{$randomPhoneNumber}}\",\r\n    \"idCliente\":{{id_cliente}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/contato/insereContato",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contato",
+						"insereContato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove contato Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Token",
+						"value": "12345678",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/contato/removeContato?contatoId={{id_contato}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contato",
+						"removeContato"
+					],
+					"query": [
+						{
+							"key": "contatoId",
+							"value": "{{id_contato}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove cliente Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Token",
+						"value": "12345678",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/cliente/removerCliente?clienteId={{id_cliente}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"removerCliente"
+					],
+					"query": [
+						{
+							"key": "clienteId",
+							"value": "{{id_cliente}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Cliente Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificando se foi apagado o cliente\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var flag = true;\r",
+							"    jsonData.forEach(client => {\r",
+							"        if (client.id == pm.globals.get(\"id_cliente\")) {\r",
+							"            flag = false;\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    pm.expect(flag).equals(true);\r",
+							"\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/consultar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar contato Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificando se foi apagado o id_contato\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var flag = true;\r",
+							"    jsonData.forEach(client => {\r",
+							"        if (client.id == pm.globals.get(\"id_contato\")) {\r",
+							"            flag = false;\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    pm.expect(flag).equals(true);\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/contato/consultar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contato",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
