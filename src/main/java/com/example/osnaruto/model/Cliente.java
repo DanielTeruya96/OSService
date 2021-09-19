@@ -29,7 +29,13 @@ public class Cliente extends EntidadeBase {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Contato> contatos;
 
+    public Cliente(Integer clienteId) {
+        this.id = clienteId;
+    }
 
+    public Cliente() {
+
+    }
 
 
     public Integer getId() {

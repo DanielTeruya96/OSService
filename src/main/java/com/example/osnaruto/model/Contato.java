@@ -8,7 +8,7 @@ public class Contato extends EntidadeBase {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "nome")
     private String nome;
@@ -23,11 +23,11 @@ public class Contato extends EntidadeBase {
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
