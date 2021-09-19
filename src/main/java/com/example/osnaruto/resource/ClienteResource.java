@@ -68,7 +68,7 @@ public class ClienteResource {
             @ApiImplicitParam(name = "token", value = "Token de acesso", required = true,  paramType = "header", dataTypeClass = String.class, example = "852468245"),
             @ApiImplicitParam(name = "clienteId", value = "Codigo do contato", required = true, paramType = "header", dataTypeClass = String.class, example = "123"),
     })
-    @PostMapping(value = "/removerCliente", produces = "text/plain")
+    @PutMapping(value = "/removerCliente", produces = "text/plain")
     public String removerCliente(@RequestParam Integer clienteId, @RequestHeader String token){
         return service.removerCliente(clienteId,token);
     }
