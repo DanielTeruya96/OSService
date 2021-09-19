@@ -51,4 +51,14 @@ public class ClientRequest {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    @Override
+    public String toString() {
+        return "ClientRequest{" +
+                "razaoSocial='" + razaoSocial + '\'' +
+                ", cpfPcpj='" + cpfPcpj + '\'' +
+                ", nomeFantasia='" + nomeFantasia + '\'' +
+                ", endereco='" + endereco + '\'' +
+                '}';
+    }
 }

@@ -6,9 +6,13 @@ import com.example.osnaruto.model.Usuario;
 import com.example.osnaruto.repository.BasicBusiness;
 import com.example.osnaruto.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BasicService<T extends EntidadeBase> {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -23,6 +27,7 @@ public class BasicService<T extends EntidadeBase> {
         if(logado == null){
             throw new AutenticacaoException();
         }
+        logger.info("Usuario encontrado "+logado);
         return logado;
     }
 }

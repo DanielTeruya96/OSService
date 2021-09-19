@@ -22,6 +22,7 @@ public class ClienteService extends BasicService<Cliente> {
 
 
     public List<ClienteResponse> buscarTotosCliente(){
+        logger.info("Buscando todos os clientes");
         List<ClienteResponse> clientes = new ArrayList<>();
         for(Cliente cliente: clienteRepository.findAll()){
             ModelMapper modelMapper = new ModelMapper();
@@ -33,23 +34,29 @@ public class ClienteService extends BasicService<Cliente> {
     }
 
     public ClienteResponse insereCliente(ClientRequest clienteRequest, String token) {
+        logger.info("insereCliente recebido: "+clienteRequest.toString()+" com o token "+token);
         Usuario logado = getUsuario(token);
+
 
         Cliente cliente = modelMapper.map(clienteRequest,Cliente.class);
 
         Cliente c = this.business.inserir(cliente,logado);
         c = clienteRepository.save(c);
 
+        ClienteResponse response = modelMapper.map(c,ClienteResponse.class);
+        logger.info("Response "+response.toString());
 
-        return modelMapper.map(c,ClienteResponse.class);
+        return response;
     }
 
     public String removerCliente(Integer clienteId, String token) {
+        logger.info("removerCliente recebido: "+clienteId+" com o token "+token);
         Usuario logado = getUsuario(token);
 
         Optional<Cliente> clienteOptional =  clienteRepository.findById(clienteId);
 
         if(clienteOptional.isEmpty()){
+            logger.info("clienteId nao encontrado");
             throw new BasicException("clienteId nao encontrado");
         }
 
@@ -58,6 +65,7 @@ public class ClienteService extends BasicService<Cliente> {
         cliente = business.remove(cliente,logado);
 
         clienteRepository.save(cliente);
+        logger.info("clienteId "+clienteId+ "removido com suceso!");
 
         return "Cliente removido com sucesso!";
 

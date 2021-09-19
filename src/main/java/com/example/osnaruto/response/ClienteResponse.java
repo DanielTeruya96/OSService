@@ -77,4 +77,16 @@ public class ClienteResponse {
     public void setContatos(List<ContatoResponse> contatos) {
         this.contatos = contatos;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteResponse{" +
+                "id=" + id +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", cpfPcpj='" + cpfPcpj + '\'' +
+                ", nomeFantasia='" + nomeFantasia + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", contatos=" + contatos +
+                '}';
+    }
 }
