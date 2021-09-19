@@ -19,6 +19,7 @@ public class BasicBusiness<T extends EntidadeBase> {
         t.setUsuarioInclusao(logado.getNome());
         t.setDataInclusao(new Date());
         t.setVersaoRegistro(0);
+        t.setAtivo(true);
         return t;
     }
 
