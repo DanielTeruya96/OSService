@@ -1,5 +1,7 @@
 package com.example.osnaruto.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Cliente extends EntidadeBase {
     private String endereco;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    @Where(clause = "ativo = 1")
     private List<Contato> contatos;
 
     public Cliente(Integer clienteId) {

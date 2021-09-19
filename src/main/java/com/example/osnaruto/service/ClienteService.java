@@ -24,7 +24,7 @@ public class ClienteService extends BasicService<Cliente> {
     public List<ClienteResponse> buscarTotosCliente(){
         logger.info("Buscando todos os clientes");
         List<ClienteResponse> clientes = new ArrayList<>();
-        for(Cliente cliente: clienteRepository.findAll()){
+        for(Cliente cliente: clienteRepository.findAllByAtivo(true)){
             ModelMapper modelMapper = new ModelMapper();
             ClienteResponse response = modelMapper.map(cliente, ClienteResponse.class);
             clientes.add(response);

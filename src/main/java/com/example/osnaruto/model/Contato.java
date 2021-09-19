@@ -1,5 +1,7 @@
 package com.example.osnaruto.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Contato extends EntidadeBase {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @Where(clause = "ativo = 1")
     private Cliente cliente;
 
     public Integer getId() {
