@@ -76,7 +76,7 @@ public class ContatoResource{
             @ApiImplicitParam(name = "token", value = "Token de acesso", required = true,  paramType = "header", dataTypeClass = String.class, example = "852468245"),
             @ApiImplicitParam(name = "contatoId", value = "Codigo do contato", required = true, paramType = "header", dataTypeClass = String.class, example = "123"),
     })
-    @PostMapping("/removeContato")
+    @PutMapping("/removeContato")
     public String removeContato(@RequestParam Integer contatoId, @RequestHeader String token){
         return service.removeContato(contatoId,token);
     }
