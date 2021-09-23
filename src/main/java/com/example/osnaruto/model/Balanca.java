@@ -6,24 +6,30 @@ import javax.persistence.*;
 @Table(name = "balanca")
 public class Balanca extends EntidadeBase{
 
+    @Basic
     @Id
-    @Column(name = "id", nullable = false)
     private Integer id;
-    @OneToOne
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item item;
 
     @Basic
-    @Column(name = "portaria",  length = 500)
+    @Column(name = "nome",  length = 500)
+    private String nome;
+
+    @Basic
+    @Column(name = "modelo",  length = 500)
+    private String modelo;
+
+    @Basic
+    @Column(name = "marca", length = 500)
+    private String marca;
+
+    @Basic
+    @Column(name = "portaria", length = 500)
     private String portaria;
 
-    @Basic
-    @Column(name = "numero_imetro",  length = 500)
-    private String numeroImetro;
 
     @Basic
-    @Column(name = "capacidade", length = 500)
-    private String capacidade;
+    @Column(name = "numero_imetro", length = 500)
+    private String numeroImetro;
 
 
     public Integer getId() {
@@ -34,12 +40,31 @@ public class Balanca extends EntidadeBase{
         this.id = id;
     }
 
-    public Item getItem() {
-        return item;
+
+    public String getNome() {
+        return nome;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
 
@@ -51,22 +76,12 @@ public class Balanca extends EntidadeBase{
         this.portaria = portaria;
     }
 
-
     public String getNumeroImetro() {
         return numeroImetro;
     }
 
     public void setNumeroImetro(String numeroImetro) {
         this.numeroImetro = numeroImetro;
-    }
-
-
-    public String getCapacidade() {
-        return capacidade;
-    }
-
-    public void setCapacidade(String capacidade) {
-        this.capacidade = capacidade;
     }
 
     @Override
@@ -77,20 +92,21 @@ public class Balanca extends EntidadeBase{
         Balanca balanca = (Balanca) o;
 
         if (id != null ? !id.equals(balanca.id) : balanca.id != null) return false;
-        if (item != null ? !item.equals(balanca.item) : balanca.item != null) return false;
+        if (nome != null ? !nome.equals(balanca.nome) : balanca.nome != null) return false;
+        if (modelo != null ? !modelo.equals(balanca.modelo) : balanca.modelo != null) return false;
+        if (marca != null ? !marca.equals(balanca.marca) : balanca.marca != null) return false;
         if (portaria != null ? !portaria.equals(balanca.portaria) : balanca.portaria != null) return false;
-        if (numeroImetro != null ? !numeroImetro.equals(balanca.numeroImetro) : balanca.numeroImetro != null)
-            return false;
-        return capacidade != null ? capacidade.equals(balanca.capacidade) : balanca.capacidade == null;
+        return numeroImetro != null ? numeroImetro.equals(balanca.numeroImetro) : balanca.numeroImetro == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (item != null ? item.hashCode() : 0);
+        result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (modelo != null ? modelo.hashCode() : 0);
+        result = 31 * result + (marca != null ? marca.hashCode() : 0);
         result = 31 * result + (portaria != null ? portaria.hashCode() : 0);
         result = 31 * result + (numeroImetro != null ? numeroImetro.hashCode() : 0);
-        result = 31 * result + (capacidade != null ? capacidade.hashCode() : 0);
         return result;
     }
 }
