@@ -1,9 +1,9 @@
 package com.example.osnaruto.service;
 
+import com.example.osnaruto.business.BasicBusiness;
 import com.example.osnaruto.exception.AutenticacaoException;
 import com.example.osnaruto.model.EntidadeBase;
 import com.example.osnaruto.model.Usuario;
-import com.example.osnaruto.repository.BasicBusiness;
 import com.example.osnaruto.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

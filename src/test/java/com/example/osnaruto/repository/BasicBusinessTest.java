@@ -1,8 +1,8 @@
 package com.example.osnaruto.repository;
 
+import com.example.osnaruto.business.BasicBusiness;
 import com.example.osnaruto.model.EntidadeBase;
 import com.example.osnaruto.model.Usuario;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

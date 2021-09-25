@@ -15,5 +15,9 @@ public class EquipamentoEspecification  {
         return (root, query, builder) -> builder.equal(root.get("nome"), nome);
     }
 
+    public static Specification<Equipamento> id(Integer id){
+        return (root, query, builder) -> builder.equal(root.get("id"), id);
+    }
+
 
 }

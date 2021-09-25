@@ -28,6 +28,16 @@ public class EquipamentoResource {
             return service.cadastrarEquipament(equipamentoRequest,token);
     }
 
+    @PutMapping("/alterar")
+    public EquipamentoResponse alterarEquipamento(@RequestBody EquipamentoRequest equipamentoRequest, @RequestHeader String token){
+        return service.alterarEquipamento(equipamentoRequest,token);
+    }
+
+    @DeleteMapping("/remover")
+    public String removerEquipamento(@RequestParam Integer equipamentoId, @RequestHeader String token ){
+        return service.removerEquipamento(equipamentoId, token);
+    }
+
 
 
 }

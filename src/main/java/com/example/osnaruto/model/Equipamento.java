@@ -2,16 +2,14 @@ package com.example.osnaruto.model;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @DynamicUpdate
 public class Equipamento extends EntidadeBase{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nome", length = 500)
@@ -81,5 +79,15 @@ public class Equipamento extends EntidadeBase{
         result = 31 * result + (modelo != null ? modelo.hashCode() : 0);
         result = 31 * result + (marca != null ? marca.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipamento{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", marca='" + marca + '\'' +
+                '}';
     }
 }
