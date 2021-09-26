@@ -20,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("contato")
+@Api(tags = "Contato")
 public class ContatoResource{
 
 

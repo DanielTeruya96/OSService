@@ -1,0 +1,729 @@
+openapi: 3.0.1
+info:
+  description: Documentação da API do OS service
+  license:
+    name: Apache License Version 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  title: OS serive REST API
+  version: 1.0.0
+servers:
+- url: //localhost:8080/
+tags:
+- description: Balanca Resource
+  name: Balanca
+- description: Cliente Resource
+  name: Cliente
+- description: Contato Resource
+  name: Contato
+- description: Equipamento Resource
+  name: Equipamento
+paths:
+  /balanca/alterar:
+    put:
+      deprecated: false
+      operationId: alterarResponseUsingPUT
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BalancaRequest'
+        description: request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalancaResponse'
+          description: Retorna info da balanca
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Altera uma balanca que ja exite
+      tags:
+      - Balanca
+      x-codegen-request-body-name: request
+      x-contentType: application/json
+      x-accepts: application/json
+  /balanca/cadastrar:
+    post:
+      deprecated: false
+      operationId: inserirnovaBalancaUsingPOST
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BalancaRequest'
+        description: request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalancaResponse'
+          description: Retorna info da balanca
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Cria uma nova balanca
+      tags:
+      - Balanca
+      x-codegen-request-body-name: request
+      x-contentType: application/json
+      x-accepts: application/json
+  /balanca/consultar:
+    get:
+      deprecated: false
+      operationId: consultarBalancaUsingGET
+      parameters:
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BalancaResponse'
+                type: array
+          description: Retorna lista de balanca
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Consulta todas balancas
+      tags:
+      - Balanca
+      x-accepts: application/json
+  /balanca/remover:
+    delete:
+      deprecated: false
+      operationId: removerBalancaUsingDELETE
+      parameters:
+      - description: Codigo da balanca
+        example: "123"
+        in: header
+        name: balancaId
+        required: true
+        schema:
+          type: string
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+      summary: removerBalanca
+      tags:
+      - Balanca
+      x-accepts: text/plain
+  /cliente/consultar:
+    get:
+      deprecated: false
+      operationId: consultarUsingGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClienteResponse'
+                type: array
+          description: Retorna lista de clientes
+        "403":
+          content: {}
+          description: Token não encontrado!
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Consulta todos clientes
+      tags:
+      - Cliente
+      x-accepts: application/json
+  /cliente/insereCliente:
+    post:
+      deprecated: false
+      operationId: insereClienteUsingPOST
+      parameters:
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRequest'
+        description: clienteRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+          description: Retorna Cliente cadastrado
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Insere cliente
+      tags:
+      - Cliente
+      x-codegen-request-body-name: clienteRequest
+      x-contentType: application/json
+      x-accepts: application/json
+  /cliente/removerCliente:
+    put:
+      deprecated: false
+      operationId: removerClienteUsingPUT
+      parameters:
+      - description: Codigo do contato
+        example: "123"
+        in: header
+        name: clienteId
+        required: true
+        schema:
+          type: string
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Ok
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Remove um cliente
+      tags:
+      - Cliente
+      x-accepts: text/plain
+  /contato/consultar:
+    get:
+      deprecated: false
+      operationId: contatosUsingGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContatoResponse'
+                type: array
+          description: Retorna lista de contato
+        "403":
+          content: {}
+          description: Token não encontrado!
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Consulta todos os contatos
+      tags:
+      - Contato
+      x-accepts: application/json
+  /contato/insereContato:
+    post:
+      deprecated: false
+      operationId: insereContatoUsingPOST
+      parameters:
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContatoRequest'
+        description: contatoRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContatoResponse'
+          description: Retorna contato com o codigo do contato
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Insere um contato
+      tags:
+      - Contato
+      x-codegen-request-body-name: contatoRequest
+      x-contentType: application/json
+      x-accepts: application/json
+  /contato/removeContato:
+    put:
+      deprecated: false
+      operationId: removeContatoUsingPUT
+      parameters:
+      - description: Codigo do contato
+        example: "123"
+        in: header
+        name: contatoId
+        required: true
+        schema:
+          type: string
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Ok
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Remove um contato
+      tags:
+      - Contato
+      x-accepts: '*/*'
+  /equipamento/alterar:
+    put:
+      deprecated: false
+      operationId: alterarEquipamentoUsingPUT
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipamentoRequest'
+        description: equipamentoRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipamentoResponse'
+          description: Retorna info do equipamento
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Altera um equipamento que ja exite
+      tags:
+      - Equipamento
+      x-codegen-request-body-name: equipamentoRequest
+      x-contentType: application/json
+      x-accepts: application/json
+  /equipamento/cadastrar:
+    post:
+      deprecated: false
+      operationId: inserirEquipamentoUsingPOST
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipamentoRequest'
+        description: equipamentoRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipamentoResponse'
+          description: Retorna info dos equipamento
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Cadastrar um equipamento
+      tags:
+      - Equipamento
+      x-codegen-request-body-name: equipamentoRequest
+      x-contentType: application/json
+      x-accepts: application/json
+  /equipamento/consultar:
+    get:
+      deprecated: false
+      operationId: consultarEquipamentoUsingGET
+      parameters:
+      - description: Token de acesso
+        example: "852468245"
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/EquipamentoResponse'
+                type: array
+          description: Retorna lista de balanca
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: Consulta todas balancas
+      tags:
+      - Equipamento
+      x-accepts: '*/*'
+  /equipamento/remover:
+    delete:
+      deprecated: false
+      operationId: removerEquipamentoUsingDELETE
+      parameters:
+      - description: equipamentoId
+        in: query
+        name: equipamentoId
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: token
+        in: header
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: 'Retorna "OK" '
+        "403":
+          content: {}
+          description: Erro de autenticacao
+        "500":
+          content: {}
+          description: Erro não mapeado
+      summary: deleta um equipamento que ja exite
+      tags:
+      - Equipamento
+      x-accepts: application/json
+components:
+  schemas:
+    BalancaRequest:
+      example:
+        marca: filizola
+        numeroImetro: "13123987"
+        nome: prix
+        portaria: 999786-0000
+        id: 1
+        modelo: filizola
+      properties:
+        id:
+          description: Codigo da balanca
+          example: 1
+          format: int32
+          type: integer
+        marca:
+          description: marca da balanca
+          example: filizola
+          type: string
+        modelo:
+          description: modelo da balanca
+          example: filizola
+          type: string
+        nome:
+          description: nome da balanca
+          example: prix
+          type: string
+        numeroImetro:
+          description: Numero do imetro
+          example: "13123987"
+          type: string
+        portaria:
+          description: portaria
+          example: 999786-0000
+          type: string
+      title: BalancaRequest
+      type: object
+    BalancaResponse:
+      example:
+        marca: filizola
+        numeroImetro: "13123987"
+        nome: prix
+        portaria: 999786-0000
+        id: 5
+        modelo: filizola
+      properties:
+        id:
+          description: codigo da balacna
+          example: 5
+          format: int32
+          type: integer
+        marca:
+          description: marca da balanca
+          example: filizola
+          type: string
+        modelo:
+          description: modelo da balanca
+          example: filizola
+          type: string
+        nome:
+          description: nome da balanca
+          example: prix
+          type: string
+        numeroImetro:
+          description: Numero do imetro
+          example: "13123987"
+          type: string
+        portaria:
+          description: portaria
+          example: 999786-0000
+          type: string
+      title: BalancaResponse
+      type: object
+    ClientRequest:
+      example:
+        nomeFantasia: Josenildo Cachaças
+        endereco: Rua de algum lugar numero 53
+        cpfPcpj: "75264895148"
+        razaoSocial: Conveniencia
+      properties:
+        cpfPcpj:
+          description: CPF ou CNPJ do cliente
+          example: "75264895148"
+          type: string
+        endereco:
+          description: Endereco do cliente
+          example: Rua de algum lugar numero 53
+          type: string
+        nomeFantasia:
+          description: Nome fantasia
+          example: Josenildo Cachaças
+          type: string
+        razaoSocial:
+          description: Razão social
+          example: Conveniencia
+          type: string
+      title: ClientRequest
+      type: object
+    ClienteResponse:
+      example:
+        nomeFantasia: Josenildo Cachaças
+        contatos:
+        - telefone: 48651-7894
+          nome: Josenildo
+          id: 123
+          email: josenildo@mail.com
+        - telefone: 48651-7894
+          nome: Josenildo
+          id: 123
+          email: josenildo@mail.com
+        endereco: Rua de algum lugar numero 53
+        id: 5
+        cpfPcpj: "75264895148"
+        razaoSocial: Conveniencia
+      properties:
+        contatos:
+          description: Lista de Contato
+          items:
+            $ref: '#/components/schemas/ContatoResponse'
+          type: array
+        cpfPcpj:
+          description: CPF ou CNPJ do cliente
+          example: "75264895148"
+          type: string
+        endereco:
+          description: Endereco do cliente
+          example: Rua de algum lugar numero 53
+          type: string
+        id:
+          description: codigo do cliente
+          example: 5
+          format: int32
+          type: integer
+        nomeFantasia:
+          description: Nome fantasia
+          example: Josenildo Cachaças
+          type: string
+        razaoSocial:
+          description: Razão social
+          example: Conveniencia
+          type: string
+      title: ClienteResponse
+      type: object
+    ContatoRequest:
+      example:
+        telefone: 1000-000
+        idCliente: 123
+        nome: Josenildo
+        email: mail@mail.com
+      properties:
+        email:
+          description: email do contato
+          example: mail@mail.com
+          type: string
+        idCliente:
+          description: codigo do cliente
+          example: 123
+          format: int32
+          type: integer
+        nome:
+          description: Nome do Contato
+          example: Josenildo
+          type: string
+        telefone:
+          description: Telefone do contato
+          example: 1000-000
+          type: string
+      required:
+      - nome
+      title: ContatoRequest
+      type: object
+    ContatoResponse:
+      example:
+        telefone: 48651-7894
+        nome: Josenildo
+        id: 123
+        email: josenildo@mail.com
+      properties:
+        email:
+          description: email do contato
+          example: josenildo@mail.com
+          type: string
+        id:
+          description: Código do contato
+          example: 123
+          format: int32
+          type: integer
+        nome:
+          description: nome do contato
+          example: Josenildo
+          type: string
+        telefone:
+          description: telefone do contato
+          example: 48651-7894
+          type: string
+      title: ContatoResponse
+      type: object
+    EquipamentoRequest:
+      example:
+        marca: kajsdhajdskg
+        nome: lacre
+        id: 1
+        modelo: auau
+      properties:
+        id:
+          description: codigo do equipamento
+          example: 1
+          format: int32
+          type: integer
+        marca:
+          description: marca do equipamento
+          example: kajsdhajdskg
+          type: string
+        modelo:
+          description: modelo do equipamento
+          example: auau
+          type: string
+        nome:
+          description: nome do equipamento
+          example: lacre
+          type: string
+      title: EquipamentoRequest
+      type: object
+    EquipamentoResponse:
+      example:
+        marca: kajsdhajdskg
+        nome: lacre
+        id: 1
+        modelo: auau
+      properties:
+        id:
+          description: codigo do equipamento
+          example: 1
+          format: int32
+          type: integer
+        marca:
+          description: marca do equipamento
+          example: kajsdhajdskg
+          type: string
+        modelo:
+          description: modelo do equipamento
+          example: auau
+          type: string
+        nome:
+          description: nome do equipamento
+          example: lacre
+          type: string
+      title: EquipamentoResponse
+      type: object
+x-original-swagger-version: "2.0"
+

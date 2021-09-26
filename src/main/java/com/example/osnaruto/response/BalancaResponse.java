@@ -1,20 +1,26 @@
 package com.example.osnaruto.response;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class BalancaResponse {
 
+    @ApiModelProperty(value = "codigo da balacna", example = "5")
     private Integer id;
 
+    @ApiModelProperty(value = "nome da balanca", example="prix")
     private String nome;
 
+    @ApiModelProperty(value = "modelo da balanca", example="filizola")
     private String modelo;
 
+    @ApiModelProperty(value = "marca da balanca", example="filizola")
     private String marca;
 
-
+    @ApiModelProperty(value = "portaria", example="999786-0000")
     private String portaria;
 
 
-
+    @ApiModelProperty(value = "Numero do imetro", example="13123987")
     private String numeroImetro;
 
 

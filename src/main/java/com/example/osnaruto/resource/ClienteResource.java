@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("cliente")
+@Api(tags = "Cliente")
 public class ClienteResource {
 
     private final ClienteService service;

@@ -1,13 +1,19 @@
 package com.example.osnaruto.response;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class EquipamentoResponse {
 
+    @ApiModelProperty(value = "codigo do equipamento", example="1")
     private Integer id;
 
+    @ApiModelProperty(value = "nome do equipamento", example="lacre")
     private String nome;
 
+    @ApiModelProperty(value = "modelo do equipamento", example="auau")
     private String modelo;
 
+    @ApiModelProperty(value = "marca do equipamento", example="kajsdhajdskg")
     private String marca;
 
 
