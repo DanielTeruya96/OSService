@@ -8,9 +8,7 @@ import javax.persistence.*;
 @Table(name = "contato")
 public class Contato extends EntidadeBase {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+
 
     @Column(name = "nome")
     private String nome;
@@ -26,13 +24,6 @@ public class Contato extends EntidadeBase {
     @Where(clause = "ativo = 1")
     private Cliente cliente;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

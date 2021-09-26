@@ -1,11 +1,16 @@
 package com.example.osnaruto.model;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import io.swagger.models.auth.In;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
 public class EntidadeBase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "ativo")
     private Boolean ativo;
@@ -72,5 +77,13 @@ public class EntidadeBase {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
