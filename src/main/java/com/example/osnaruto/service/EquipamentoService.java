@@ -27,7 +27,9 @@ public class EquipamentoService extends AbstractService<Equipamento, Equipamento
 
     @Override
     protected Equipamento buscaEntidadeAlterar(EquipamentoRequest request) {
-        return buscaEquipamento(request.getId());
+        Equipamento equipamentoAntigo = buscaEquipamento(request.getId());
+        Equipamento equipamentoNovo = modelMapper.map(request,Equipamento.class);
+        return business.alterar(equipamentoAntigo,logado,equipamentoNovo);
     }
 
     @Override

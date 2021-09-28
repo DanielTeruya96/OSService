@@ -70,7 +70,7 @@ public class EquipamentoResource {
 
 
     })
-    @DeleteMapping(value = "/remover", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(value = "/remover",  produces = "text/plain")
     public String removerEquipamento(@RequestParam Integer equipamentoId, @RequestHeader String token ){
         return service.remover(equipamentoId, token);
     }
