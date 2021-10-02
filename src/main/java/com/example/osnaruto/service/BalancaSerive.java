@@ -2,9 +2,11 @@ package com.example.osnaruto.service;
 
 import com.example.osnaruto.exception.BasicException;
 import com.example.osnaruto.model.Balanca;
+import com.example.osnaruto.repository.BalancaRepository;
 import com.example.osnaruto.request.BalancaRequest;
 import com.example.osnaruto.response.BalancaResponse;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,9 @@ import static com.example.osnaruto.repository.BalancaEspecification.ativo;
 @Service
 public class BalancaSerive extends AbstractService<Balanca, BalancaRequest, BalancaResponse> {
 
+    @Autowired
+    private BalancaRepository balancaAbstractRepository;
+
     @Override
     protected BalancaResponse populaResponseEditar(Balanca balanca) {
         return modelMapper.map(balanca,BalancaResponse.class);
@@ -22,7 +27,9 @@ public class BalancaSerive extends AbstractService<Balanca, BalancaRequest, Bala
 
     @Override
     protected Balanca buscaEntidadeAlterar(BalancaRequest request) {
-        return buscaEquipamento(request.getId());
+        Balanca antiga = buscaBalanca(request.getId());
+        Balanca nova = modelMapper.map(request,Balanca.class);
+        return business.alterar(antiga,logado,nova);
     }
 
     @Override
@@ -42,12 +49,12 @@ public class BalancaSerive extends AbstractService<Balanca, BalancaRequest, Bala
 
     @Override
     protected List<Balanca> consulta() {
-        return repository.findAll(ativo());
+        return balancaAbstractRepository.findAll(ativo());
     }
 
 
-    private Balanca buscaEquipamento(Integer balancaId) {
-        Optional<Balanca> equipamentoOptional = repository.findById(balancaId);
+    private Balanca buscaBalanca(Integer balancaId) {
+        Optional<Balanca> equipamentoOptional = balancaAbstractRepository.findById(balancaId);
 
         if(equipamentoOptional.isEmpty()){
             throw new BasicException("Codigo do equipamento nao encontrado");

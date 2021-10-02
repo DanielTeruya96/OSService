@@ -1,31 +1,28 @@
 package com.example.osnaruto.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "balanca")
+@DynamicUpdate
 public class Balanca extends EntidadeBase{
 
 
-
-    @Basic
     @Column(name = "nome",  length = 500)
     private String nome;
 
-    @Basic
+
     @Column(name = "modelo",  length = 500)
     private String modelo;
 
-    @Basic
     @Column(name = "marca", length = 500)
     private String marca;
 
-    @Basic
     @Column(name = "portaria", length = 500)
     private String portaria;
 
 
-    @Basic
     @Column(name = "numero_imetro", length = 500)
     private String numeroImetro;
 

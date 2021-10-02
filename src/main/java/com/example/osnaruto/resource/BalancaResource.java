@@ -49,7 +49,7 @@ public class BalancaResource {
     })
     @PostMapping(value = "/cadastrar", consumes = "application/json", produces = "application/json")
     public BalancaResponse inserirnovaBalanca(@RequestBody BalancaRequest request, @RequestHeader String token){
-        return serive.alterar(request,token);
+        return serive.novo(request,token);
     }
 
     @ApiOperation(value = "Altera uma balanca que ja exite")
